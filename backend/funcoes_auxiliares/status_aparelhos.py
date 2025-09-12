@@ -1,15 +1,22 @@
-# Arquivo: backend/funcoes_auxiliares/status_aparelhos.py
+import random
+import pandas as pd
+import os
+from dotenv import load_dotenv
 
 def infos():
-    """
-    Esta função busca os dados dos aparelhos.
-    Por enquanto, ela retorna dados de exemplo.
-    No futuro, você pode colocar aqui a lógica real para ler os dados do seu inversor/bateria.
-    """
+    load_dotenv()
+    caminho = os.getenv("CAMINHO")
+    dados= pd.read_excel(caminho)
+
+    dicionario_dados = dados.to_dict(orient="records")
+    n = random.randint(0, len(dicionario_dados) - 1)
+    dia= dicionario_dados[n]
+    print(dia)
+
     dados_de_exemplo = {
         "inversor_status": "Operando Normalmente",
-        "bateria_carga": "85%",
-        "producao_solar_watts": 1500,
-        "consumo_casa_watts": 450
+        "bateria_carga": dia['SOC(%)'],
+        "producao_solar_watts": dia['FV(W)'],
+        "consumo_casa_watts": dia['Carga(W)']
     }
     return dados_de_exemplo

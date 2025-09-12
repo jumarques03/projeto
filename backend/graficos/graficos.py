@@ -13,10 +13,10 @@ try:
     df['Horário'] = pd.to_datetime(df['Horário'], format="%d.%m.%Y %H:%M:%S")
     df = df.set_index('Horário')
     df2 = df.copy()
-    df_diario = df.resample('D').sum() # Renomeado para maior clareza
+    df_diario = df.resample('D').sum()
 except FileNotFoundError:
     print(f"!!!!!!!!!!!! ERRO CRÍTICO: O arquivo de dados em '{caminho}' não foi encontrado. !!!!!!!!!!!!")
-    df_diario = pd.DataFrame() # Cria um DataFrame vazio para evitar mais erros
+    df_diario = pd.DataFrame()
     df2 = pd.DataFrame()
 
 
@@ -32,16 +32,19 @@ def serie_temporal(valor: str, cor: str, titulo: str, x: str, y: str):
                 "label": titulo,
                 "data": data_points,
                 "borderColor": cor,
-                "backgroundColor": f"{cor}33", # Cor com baixa opacidade para o preenchimento
+                "backgroundColor": f"{cor}33",
                 "fill": True,
-                "tension": 0.4, # Linhas mais suaves
-                "pointBackgroundColor": cor # Cor dos pontinhos
+                "tension": 0.4, 
+                "pointBackgroundColor": cor 
             }]
         },
         "options": {
             "responsive": True,
-            "maintainAspectRatio": False, # <-- IMPORTANTE: Permite que o CSS controle o tamanho
-            "plugins": { "legend": { "display": False } }, # Opcional: esconde a legenda
+            "maintainAspectRatio": False, 
+            "layout": {         
+                "padding": 10     
+            },
+            "plugins": { "legend": { "display": False } }, 
             "scales": {
                 "x": { "title": { "display": True, "text": x } },
                 "y": { "title": { "display": True, "text": y } }
@@ -54,7 +57,6 @@ def serie_temporal(valor: str, cor: str, titulo: str, x: str, y: str):
 def histograma(valor: str, intervalo: int, titulo: str, x: str, y: str):
     print("\n--- INICIANDO DEBUG DO HISTOGRAMA ---")
 
-    # --- ETAPA 1: Validação e Limpeza ---
     if valor not in df2.columns:
         print(f"AVISO: A coluna '{valor}' não foi encontrada.")
         return {"type": "bar", "data": {"labels": [], "datasets": []}, "options": {"plugins": {"title": {"display": True, "text": "Dados não encontrados"}}}}
@@ -75,7 +77,6 @@ def histograma(valor: str, intervalo: int, titulo: str, x: str, y: str):
         print("AVISO FINAL: A coluna está vazia após a limpeza. Não é possível gerar o histograma.")
         return {"type": "bar", "data": {"labels": [], "datasets": []}, "options": {"plugins": {"title": {"display": True, "text": "Sem dados válidos para exibir"}}}}
 
-    # --- ETAPA 2: Cálculo do Histograma ---
     try:
         print("\n3. TENTANDO calcular o histograma...")
         counts, bin_edges = np.histogram(dados_validos, bins=intervalo)
@@ -85,11 +86,10 @@ def histograma(valor: str, intervalo: int, titulo: str, x: str, y: str):
         print("\n!!!!!!!!!!!!!!!!! ERRO ENCONTRADO !!!!!!!!!!!!!!!!!")
         print("A função np.histogram falhou. O erro exato foi:")
         import traceback
-        traceback.print_exc() # Imprime o traceback completo do erro
+        traceback.print_exc()
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         return {"type": "bar", "data": {"labels": [], "datasets": []}, "options": {"plugins": {"title": {"display": True, "text": "Erro ao processar dados"}}}}
 
-    # --- ETAPA 3: Montagem do JSON de Resposta ---
     print("\n4. Montando o JSON de resposta.")
     labels = [f"{int(bin_edges[i])}-{int(bin_edges[i+1])}" for i in range(len(bin_edges)-1)]
     
@@ -108,7 +108,10 @@ def histograma(valor: str, intervalo: int, titulo: str, x: str, y: str):
         "options": {
             "responsive": True,
             "maintainAspectRatio": False,
-            "plugins": { "legend": { "display": False }, "title": { "display": True, "text": titulo } },
+            "layout": {          
+                "padding": 10     
+            },
+            "plugins": { "legend": { "display": False }, "title": { "display": False, "text": titulo } },
             "scales": {
                 "x": { "title": { "display": True, "text": x } },
                 "y": { "title": { "display": True, "text": y }, "beginAtZero": True }
@@ -117,7 +120,6 @@ def histograma(valor: str, intervalo: int, titulo: str, x: str, y: str):
     }
     print("--- FIM DO DEBUG DO HISTOGRAMA ---\n")
     return chart_config
-
 
 
 def obter_producao_hoje():

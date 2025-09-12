@@ -19,7 +19,7 @@ def corpo_resposta_para_Alexa(texto, acabar_sessao):
             }
         }
     
-    return JSONResponse(content=resposta)   # Retorna uma resposta HTTP no formato JSON
+    return JSONResponse(content=resposta)
 
 def resposta_erro_padrao(e):
     print(e)
@@ -82,8 +82,6 @@ def dicas():
     n = random.randint(0, len(dicas) - 1)
     return dicas[n]
 
-# Em backend/funcoes_auxiliares/funcs_auxiliares.py
-
 def obter_clima(cidade: str):
     load_dotenv()
     chave_api = os.getenv("API_KEY")
@@ -91,12 +89,9 @@ def obter_clima(cidade: str):
     url = f"https://api.hgbrasil.com/weather?key={chave_api}&city_name={cidade}"
     resposta = requests.get(url).json()
 
-    # Pega a lista completa da previsão
     forecast_list = resposta['results']['forecast']
 
-    # --- PARTE NOVA: Monta a lista com a previsão para os próximos 3 dias ---
     previsao_proximos_dias = []
-    # Usamos [0:3] para pegar hoje, amanhã e depois de amanhã
     for dia_previsao in forecast_list[1:4]:
         previsao_proximos_dias.append({
             "dia_semana": dia_previsao['weekday'],
@@ -106,18 +101,17 @@ def obter_clima(cidade: str):
             "descricao": dia_previsao['description']
         })
     
-    # Monta o objeto de resposta final
     clima = {
         "localizacao": resposta['results']['city'],
         "periodo_do_dia": resposta['results']['currently'],
-        "descricao": forecast_list[0]['description'], # Descrição de hoje
+        "descricao": forecast_list[0]['description'],
         "dia": forecast_list[0]['date'],
         "temperatura_maxima": f"{forecast_list[0]['max']}°C",
         "temperatura_minima": f"{forecast_list[0]['min']}°C",
         "preciptacao_total_(mm)": f"{forecast_list[0]['rain']}mm",
         "cobertura_de_nuvens(%)": f"{forecast_list[0]['cloudiness']}%",
         "chance_de_chuva(%)": f"{forecast_list[0]['rain_probability']}%",
-        "previsao_proximos_dias": previsao_proximos_dias # <-- Adiciona a nova lista aqui
+        "previsao_proximos_dias": previsao_proximos_dias 
     }
 
     return clima
