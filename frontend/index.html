@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SmartSolarGrid</title>
+    <link rel="stylesheet" href="../frontend/style/index.css"> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="dashboard.html" class="logo">SMARTSOLARGRID</a>
+        <div class="user-profile">
+            <a href="../frontend/pages/perfil.html" title="Ver Perfil">
+                <img src="https://c.animaapp.com/mf06rnpf6NhvQl/img/user-1.png" alt="Avatar do usuário">
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="dashboard-grid">
+            
+            <section class="production-card">
+                <div class="production-circle">
+                    <p class="production-title">PRODUÇÃO HOJE</p>
+                    <p class="production-value">32.4</p>
+                    <p class="production-unit">kWh</p>
+                </div>
+                <div class="status-indicator">TRABALHANDO</div>
+                <div class="production-stats-group">
+                    <div class="production-stats-group">
+                        <div class="production-stats-group">
+                            <div class="stat-box">
+                                <span class="stat-box-title">Geração total</span>
+                                <img src="https://c.animaapp.com/mf0213caF0MGYE/img/captura-de-tela-2025-08-17-191921-1.png" alt="Ícone de Geração">
+                                <span class="stat-box-value" id="status-geracao-total">756.4 kWh</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-box-title">SOC</span>
+                                <img src="https://c.animaapp.com/mf0213caF0MGYE/img/captura-de-tela-2025-08-17-191400-1.png" alt="Ícone da Bateria">
+                                <span class="stat-box-value" id="status-soc-valor">--%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </section>
+
+            <aside class="info-cards">
+                <div class="card-colored card-weather">
+                <div id="weather-widget">
+                    <h2 id="clima-localizacao">Carregando clima...</h2>
+                    <p id="clima-descricao">-</p>
+                    <div class="weather-details">
+                        <span id="clima-temp-max"><strong>Max:</strong> --°C</span>
+                        <span id="clima-temp-min"><strong>Min:</strong> --°C</span>
+                        <span id="clima-chuva"><strong>Chuva:</strong> --%</span>
+                    </div>
+
+                    <div id="clima-previsao" class="weather-forecast">
+                        </div>
+                </div>
+            </div>
+
+                <div class="card-colored card-priority">
+                    <a href="../frontend/pages/cargas.html" style="text-decoration: none; color: white;">
+                        <h2>Cargas Prioritárias</h2>
+                    </a>
+                </div>
+                <div class="card-colored card-inverter">
+                    <a href="../frontend/pages/inversor.html" style="text-decoration: none; color: white;">
+                        <h2>Status Inversor</h2>
+                    </a>
+                </div>
+                <div class="card-colored card-help">
+                    <a href="../frontend/pages/ia.html" style="text-decoration: none; color: white;">
+                        <h2>Ajuda Inteligente</h2>
+                    </a>
+                </div>
+            </aside>
+            
+            <section class="chart-container">
+    <h3>GRÁFICOS DE DESEMPENHO</h3>
+    
+    <div class="charts-grid">
+        <div class="chart-card">
+            <h4>Geração Solar (W)</h4>
+            <canvas id="graficoGeracaoSolar"></canvas>
+        </div>
+        <div class="chart-card">
+            <h4>Energia da Concessionária (W)</h4>
+            <canvas id="graficoEnergiaConcessionaria"></canvas>
+        </div>
+        <div class="chart-card">
+            <h4>Consumo da Residência (W)</h4>
+            <canvas id="graficoCargaConsumida"></canvas>
+        </div>
+        <div class="chart-card">
+            <h4>Uso da Bateria (W)</h4>
+            <canvas id="graficoDadosBateria"></canvas>
+        </div>
+        <div class="chart-card chart-card-full-width">
+            <h4>Nível da Bateria (%) - Histograma</h4>
+            <canvas id="graficoNivelBateria"></canvas>
+        </div>
+    </div>
+</section>
+
+        </div>
+    </main>
+     <script src="script/principal.js"></script>
+</body>
+</html>

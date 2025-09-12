@@ -1,0 +1,292 @@
+/* ==========================================================================
+   CSS DO DASHBOARD - Estilo baseado na página de Perfil
+   ========================================================================== */
+
+/* --- Reset Básico e Estilo do Body --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background-color: #f0f2f5; /* Cor de fundo da pág. Perfil */
+    color: #333; /* Cor do texto da pág. Perfil */
+    min-height: 100vh;
+}
+
+/* --- Cabeçalho (Header) - Estilo copiado da pág. Perfil --- */
+.site-header {
+    width: 100%;
+    background-color: #25323b;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.main-nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 1.1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.main-nav a:hover {
+    color: #46c1ab; /* Cor do hover da pág. Perfil */
+}
+
+.user-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.2s;
+}
+
+.user-profile img:hover {
+    transform: scale(1.1);
+}
+
+
+/* --- Conteúdo Principal e Layout Grid (Estrutura do Dashboard) --- */
+.main-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* NOVO LAYOUT DO GRID */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    /* A área "stats" foi removida e "production" agora ocupa mais espaço */
+    grid-template-areas:
+        "production info"
+        "production info" 
+        "chart      chart";
+    gap: 2rem;
+}
+
+/* Posicionamento dos Elementos no Grid */
+.production-card { grid-area: production; }
+.info-cards      { grid-area: info; }
+.chart-container { grid-area: chart; }
+
+
+/* --- Estilo de CARD BASE (copiado de 'profile-card') --- */
+.production-card,
+.chart-container { /* A classe .quick-stats foi removida daqui */
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+
+/* --- Estilos dos Componentes do Dashboard --- */
+.production-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Para espaçar os itens */
+    gap: 1.5rem;
+}
+
+.production-circle {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(141, 186, 223, 0.82) 0%, rgba(36, 79, 114, 0.82) 100%);
+    color: #ffffff;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    flex-shrink: 0; /* Impede que o círculo encolha */
+}
+.production-title { font-size: 1rem; }
+.production-value { font-size: 3rem; font-weight: 700; line-height: 1; }
+.production-unit { font-size: 1.2rem; }
+
+/* NOVO: Estilo para o grupo de stats dentro do card de produção */
+.production-stats-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 100%; /* Ocupa a largura do card */
+    color: white;
+    text-decoration: none;
+}
+
+.stat-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    background-color: #f9f9f9;
+    width: 160px; 
+}
+.stat-box-title { display: block; margin-bottom: 0.5rem; color: #555; }
+.stat-box img { height: 45px; object-fit: contain; margin-bottom: 0.5rem; }
+.stat-box-value { font-size: 1.1rem; font-weight: bold; color: #333; }
+
+
+.status-indicator {
+    border: 1px solid #333; border-radius: 30px;
+    padding: 0.5rem 2.5rem; font-size: 1.5rem; color: green; font-weight: bold;
+}
+
+.info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-colored {
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: white;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+}
+.card-colored h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.card-priority { background-color: #8fc34d; }
+.card-inverter { background-color: #12b4cf; }
+.card-help { background-color: #46c1ab; }
+
+.chart-container h3 {
+    text-align: center;
+    font-size: 2rem; /* Tamanho ajustado */
+    color: #31536e; /* Cor do título da pág. Perfil */
+    margin-bottom: 1.5rem;
+}
+.chart-placeholder {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 300px; background-color: #f9f9f9;
+    border-radius: 5px; color: #aaa;
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+        grid-template-areas:
+            "production"
+            "info"
+            "chart";
+    }
+    .main-nav {
+        display: none; /* Esconde a navegação em telas muito pequenas para simplicidade */
+    }
+}
+
+/* Adicione este código no final do seu arquivo index.css */
+
+/* Em frontend/style/index.css */
+
+.charts-grid {
+    display: grid;
+    /* Cria colunas flexíveis: cada uma com no mínimo 400px, 
+       mas se ajustam para preencher o espaço. Isso permite 2 ou 3 por linha. */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.chart-card {
+    background-color: #ffffff; /* Um fundo branco para destacar */
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Sombra mais suave */
+    border: 1px solid #e0e0e0;
+    /* A MÁGICA ACONTECE AQUI: Limitamos a altura do card */
+    height: 350px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-card h4 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #555;
+    flex-shrink: 0; /* Impede que o título encolha */
+}
+
+/* Remove o card que ocupa a largura toda, para um layout mais uniforme */
+.chart-card-full-width {
+   grid-column: auto; /* Reseta a regra anterior */
+}
+
+/* Adicione no final de index.css */
+
+/* --- Estilo para o Novo Card de Clima --- */
+.card-weather {
+    background-color: #5d9cec; /* Um azul para o clima */
+}
+
+#weather-widget {
+    color: white;
+}
+
+#weather-widget h2 {
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: bold;
+}
+
+#weather-widget p {
+    font-size: 1.1rem;
+    margin: 0;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.weather-details {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between; /* Espaça os itens */
+    font-size: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 1rem;
+}
+
+/* Adicione no final de index.css */
+.weather-forecast {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.forecast-day {
+    opacity: 0.9;
+}
+
+.forecast-day p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.forecast-day .day-name {
+    font-weight: bold;
+}

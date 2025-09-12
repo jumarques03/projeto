@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargas Prioritarias - SmartSolarGrid</title>
+  <link rel="stylesheet" href="../style/cargas.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="../index.html" class="logo">SMARTSOLARGRID</a>
+    <nav class="main-nav">
+      <a href="../pages/inversor.html">Status Inversor</a>
+      <a href="../pages/ia.html">Ajuda Inteligente</a>
+    </nav>
+    <div class="user-profile">
+      <a href="../pages/perfil.html">
+      <img src="https://c.animaapp.com/mf02aoek1QHNpE/img/user-3.png" alt="Avatar do usuário">
+      </a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <section class="load-manager">
+      <h2>Cargas Prioritárias</h2>
+
+      <ol id="load-list" class="load-list">
+      </ol>
+
+      <form id="add-load-form" class="add-form">
+        <input type="text" id="load-input" placeholder="Nome da nova carga..." required>
+        <button type="submit" class="add-btn" title="Adicionar Carga">+</button>
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="../script/cargas.js"></script>
+
+</body>
+</html>

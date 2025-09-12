@@ -1,0 +1,176 @@
+/* style.css */
+
+/* Reset básico e estilos globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  /* --- IMPORTANTE: CENTRALIZAÇÃO --- */
+  display: flex;
+  flex-direction: column; /* Empilha header e main */
+  align-items: center;    /* Centraliza o conteúdo horizontalmente */
+  min-height: 100vh;
+}
+
+/* --- HEADER MELHORADO --- */
+.site-header {
+  width: 100%;
+  background-color: #25323b;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.main-nav a {
+  color: #e0e0e0;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 1.1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.main-nav a:hover {
+  color: #46c1ab;
+}
+
+.user-profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* --- CONTEÚDO PRINCIPAL CENTRALIZADO --- */
+.main-content {
+  display: flex; /* Permite organizar os painéis lado a lado */
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px; /* Define uma largura máxima para o conteúdo */
+  justify-content: center;
+}
+
+.load-manager {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.load-manager h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #31536e;
+}
+
+/* --- LISTA DE ITENS DINÂMICA --- */
+.load-list {
+  list-style: none; /* Remove os números padrão, vamos criar os nossos */
+  counter-reset: load-counter; /* Inicia um contador CSS */
+  margin-bottom: 1.5rem;
+}
+
+.load-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  background-color: #fafafa;
+}
+
+/* Adiciona um número customizado antes de cada item */
+.load-list li::before {
+  counter-increment: load-counter;
+  content: counter(load-counter) ".";
+  font-weight: bold;
+  margin-right: 1rem;
+  color: #31536e;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 28px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* --- FORMULÁRIO PARA ADICIONAR ITENS --- */
+.add-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-form input {
+  flex-grow: 1; /* Faz o input ocupar o máximo de espaço possível */
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.add-btn {
+  background-color: #46c1ab;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-btn:hover {
+  background-color: #3aa996;
+}
+
+/* Estilos para os outros widgets do painel (exemplo) */
+.dashboard-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.widget {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}

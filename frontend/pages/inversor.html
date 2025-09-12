@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status do Inversor - SmartSolarGrid</title>
+    <link rel="stylesheet" href="../style/inversor.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="../index.html" class="logo">SMARTSOLARGRID</a>
+        <nav class="main-nav">
+          <a href="../pages/cargas.html">Cargas Prioritárias</a>
+          <a href="../pages/ia.html">Ajuda Inteligente</a>
+        </nav>
+        <div class="user-profile">
+          <a href="../pages/perfil.html" title="Ver Perfil">
+            <img src="https://c.animaapp.com/mf06rnpf6NhvQl/img/user-1.png" alt="Avatar do usuário">
+          </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">Status do Sistema em Tempo Real</h1>
+        
+        <div class="status-grid">
+            
+            <div class="status-card">
+                <div class="card-header">
+                    <img src="https://img.icons8.com/ios/50/4a90e2/shutdown.png" alt="Ícone de Status" class="status-icon"/>
+                    <h2 class="status-title">Status do Inversor</h2>
+                </div>
+                <p class="status-value" id="status-inversor">Carregando...</p>
+            </div>
+
+            <div class="status-card">
+                <div class="card-header">
+                    <img src="https://img.icons8.com/ios/50/4a90e2/full-battery.png" alt="Ícone de Bateria" class="status-icon"/>
+                    <h2 class="status-title">Carga da Bateria</h2>
+                </div>
+                <p class="status-value" id="status-bateria">--%</p>
+            </div>
+
+            <div class="status-card">
+                <div class="card-header">
+                    <img src="https://img.icons8.com/ios/50/4a90e2/solar-panel.png" alt="Ícone Solar" class="status-icon"/>
+                    <h2 class="status-title">Produção Solar</h2>
+                </div>
+                <p class="status-value" id="status-solar">-- W</p>
+            </div>
+
+            <div class="status-card">
+                <div class="card-header">
+                    <img src="https://img.icons8.com/ios/50/4a90e2/plug.png" alt="Ícone de Consumo" class="status-icon"/>
+                    <h2 class="status-title">Consumo da Casa</h2>
+                </div>
+                <p class="status-value" id="status-consumo">-- W</p>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="../script/inversor.js"></script>
+
+</body>
+</html>
