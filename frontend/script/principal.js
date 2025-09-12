@@ -1,7 +1,7 @@
 // frontend/script/dashboard.js (VERSÃO COMPLETA)
 
 document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = 'http://127.0.0.1:8000/site';
+    const baseUrl = 'https://api-smartsolargrid.onrender.com/site';
 
     // =======================================================
     // LÓGICA DO STATUS ATUAL (BATERIA, ETC.)
