@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-load-form');
     const input = document.getElementById('load-input');
     const list = document.getElementById('load-list');
-    const baseUrl = 'https://api-smartsolargrid.onrender.com/site'; // URL base da sua API
+    const baseUrl = 'http://127.0.0.1:8000/site'; // URL base da sua API
 
     // --- FUNÇÕES DA API ---
 

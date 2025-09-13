@@ -1,7 +1,7 @@
 // script/inversor.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = 'https://api-smartsolargrid.onrender.com/site';
+    const baseUrl = 'http://127.0.0.1:8000/site';
 
     const carregarStatusInversor = async () => {
         try {
@@ -37,7 +37,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Chama a função para carregar os dados assim que a página estiver pronta
     carregarStatusInversor();
-
-    // Opcional: Recarregar os dados a cada 10 segundos
-    setInterval(carregarStatusInversor, 10000); 
 });
