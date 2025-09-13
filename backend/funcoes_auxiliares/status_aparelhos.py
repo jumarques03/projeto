@@ -20,11 +20,4 @@ def infos():
         "consumo_casa_watts": dia['Carga(W)']
     }
 
-    # dados_de_exemplo = {
-    #     "inversor_status": "Operando Normalmente",
-    #     "bateria_carga": "85%",
-    #     "producao_solar_watts": 1500,
-    #     "consumo_casa_watts": 450
-    # }
-
     return dados_de_exemplo
