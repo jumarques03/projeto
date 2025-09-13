@@ -1,4 +1,4 @@
-from graficos.graficos import serie_temporal, histograma, obter_producao_hoje # <-- Adicione obter_producao_hoje
+from graficos.graficos import serie_temporal, histograma, obter_producao_hoje
 from fastapi import APIRouter
 from funcoes_auxiliares.status_aparelhos import infos
 from funcoes_auxiliares.funcs_auxiliares import ler_cargas, salvar_cargas_prioritarias, reorganizar_indices, obter_clima
