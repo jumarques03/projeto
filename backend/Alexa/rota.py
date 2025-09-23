@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from backend.funcoes_auxiliares.funcs_auxiliares import corpo_resposta_para_Alexa, resposta_erro_padrao, ler_cargas, acesso_cargas, dicas, obter_clima
-from funcoes_auxiliares.status_aparelhos import infos
-from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
+from backend.funcoes_auxiliares.status_aparelhos import infos
+from backend.funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
 rota_alexa = APIRouter(prefix="/alexa")
 
 @rota_alexa.post("/")
