@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # LINHA CORRIGIDA ABAIXO:
 # Trocamos "rotas_site" por "rotas", que é o nome do seu arquivo.
-from backend.endpoints.rotas import rota_site
+from endpoints.rotas import rota_site
 
 # 1. Cria a aplicação principal (o "Chefe de Cozinha")
 app = FastAPI(title="SmartSolarGrid API")

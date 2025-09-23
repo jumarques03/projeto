@@ -1,12 +1,12 @@
-from backend.graficos.graficos import serie_temporal, histograma, obter_producao_hoje
+from graficos.graficos import serie_temporal, histograma, obter_producao_hoje
 from fastapi import APIRouter
-from backend.funcoes_auxiliares.status_aparelhos import infos
-from backend.funcoes_auxiliares.cargas_prioritarias import consumo_aparelhos, info_consumo
-from backend.funcoes_auxiliares.funcs_auxiliares import ler_cargas, salvar_cargas_prioritarias, reorganizar_indices, obter_clima
-from backend.graficos.graficos import serie_temporal, histograma
-from backend.ia.llm import assistente_llm_site
+from funcoes_auxiliares.status_aparelhos import infos
+from funcoes_auxiliares.cargas_prioritarias import consumo_aparelhos, info_consumo
+from funcoes_auxiliares.funcs_auxiliares import ler_cargas, salvar_cargas_prioritarias, reorganizar_indices, obter_clima
+from graficos.graficos import serie_temporal, histograma
+from ia.llm import assistente_llm_site
 from pydantic import BaseModel
-from backend.funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
+from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
 
 
 class CargaPayload(BaseModel):
