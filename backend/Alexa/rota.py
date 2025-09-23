@@ -12,10 +12,10 @@ async def alexa_webhook(request: Request):
 
         if tipo_request == "LaunchRequest":
             texto_resposta = (
-                "Bem-vindo ao SmartSolarGrid! "
-                "Você pode pedir o status de seus aparelhos de energia, "
-                " saber o clima de sua cidade, "
-                " a dica do dia sobre energia e saber suas cargas prioritárias."
+                "Bem-vindo ao SmartSolarGrid!   "
+                "Você pode pedir o status de seus aparelhos de energia,  "
+                " saber o clima de sua cidade,   "
+                " a dica do dia sobre energia,  ligar,    desligar e saber suas cargas prioritárias."
             )
 
         elif tipo_request == "IntentRequest":
