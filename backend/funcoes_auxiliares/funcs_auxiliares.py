@@ -115,3 +115,5 @@ def obter_clima(cidade: str):
     }
 
     return clima
+
+

@@ -1,10 +1,13 @@
 from graficos.graficos import serie_temporal, histograma, obter_producao_hoje
 from fastapi import APIRouter
 from funcoes_auxiliares.status_aparelhos import infos
+from funcoes_auxiliares.cargas_prioritarias import consumo_aparelhos, info_consumo
 from funcoes_auxiliares.funcs_auxiliares import ler_cargas, salvar_cargas_prioritarias, reorganizar_indices, obter_clima
 from graficos.graficos import serie_temporal, histograma
 from ia.llm import assistente_llm_site
 from pydantic import BaseModel
+from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
+
 
 class CargaPayload(BaseModel):
     dispositivo: str
@@ -117,3 +120,33 @@ async def clima(local: str):
         return clima
     except:
         return {"mensagem":"Não foi possível acessar as informações do clima de sua cidade."}
+
+@rota_site.get("/consumo_aparelhos")
+async def consumo():
+    try:
+        consumo = consumo_aparelhos()
+        return consumo
+    except:
+        return {"mensagem":"Não foi possível acessar o consumo de suas cargas prioritárias."}
+    
+@rota_site.get('/informacoes_consumo')
+async def infos_consumo_cargas_prioritarias():
+    try:
+        informacoes  =info_consumo()
+        return informacoes
+    except:
+        return{None}
+    
+@rota_site.get('/ligar_cargas_prioritarias')
+async def ligar():
+    try:
+        return ligar_cargas_prioritarias()
+    except:
+        return {'Não foi possível ligar suas cargas prioritárias.'}
+    
+@rota_site.get('/desligar_cargas_prioritarias')
+async def desligar():
+    try:
+        return desligar_cargas_prioritarias()
+    except:
+        return {'Não foi possível desligar suas cargas prioritárias.'}

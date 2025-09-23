@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from backend.funcoes_auxiliares.funcs_auxiliares import corpo_resposta_para_Alexa, resposta_erro_padrao, ler_cargas, acesso_cargas, dicas, obter_clima
 from funcoes_auxiliares.status_aparelhos import infos
-
+from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
 rota_alexa = APIRouter(prefix="/alexa")
 
 @rota_alexa.post("/")
@@ -32,6 +32,14 @@ async def alexa_webhook(request: Request):
             elif intent_nome == "DicaIntent":
                 dica = dicas()
                 texto_resposta = f"Sua dica é: {dica}" 
+
+            elif intent_nome == "LigarCargasIntent":
+                ligar_cargas_prioritarias()
+                texto_resposta = "Ok, as cargas prioritárias foram ligadas."
+
+            elif intent_nome == "DesligarCargasIntent":
+                desligar_cargas_prioritarias()
+                texto_resposta = "Ok, as cargas prioritárias foram desligadas."
 
             elif intent_nome == "SaberCargasPrioritariasIntent":
                 cargas = ler_cargas()
