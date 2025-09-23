@@ -141,12 +141,14 @@ async def infos_consumo_cargas_prioritarias():
 async def ligar():
     try:
         return ligar_cargas_prioritarias()
-    except:
+    except Exception as e:
+        print(e)
         return {'Não foi possível ligar suas cargas prioritárias.'}
     
 @rota_site.get('/desligar_cargas_prioritarias')
 async def desligar():
     try:
         return desligar_cargas_prioritarias()
-    except:
+    except Exception as e:
+        print(e)
         return {'Não foi possível desligar suas cargas prioritárias.'}
