@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # LINHA CORRIGIDA ABAIXO:
 # Trocamos "rotas_site" por "rotas", que é o nome do seu arquivo.
 from endpoints.rotas import rota_site
-
+from alexa.rota import rota_alexa
 # 1. Cria a aplicação principal (o "Chefe de Cozinha")
 app = FastAPI(title="SmartSolarGrid API")
 
@@ -25,7 +25,7 @@ app.add_middleware(
 
 # 3. Inclui o seu "livro de receitas" (suas rotas) na aplicação principal
 app.include_router(rota_site)
-
+app.include_router(rota_alexa)
 # 4. (Opcional) Uma rota de boas-vindas para testar a API facilmente
 @app.get("/")
 def health_check():
