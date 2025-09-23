@@ -1,5 +1,5 @@
-from funcoes_auxiliares.funcs_auxiliares import ler_cargas
-from funcoes_auxiliares.status_aparelhos import infos
+from backend.funcoes_auxiliares.funcs_auxiliares import ler_cargas
+from backend.funcoes_auxiliares.status_aparelhos import infos
 import json
 import os
 from dotenv import load_dotenv
