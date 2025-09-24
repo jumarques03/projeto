@@ -25,7 +25,7 @@ async def alexa_webhook(request: Request):
                 infos_aparelhos = infos()
                 texto_resposta = (
                     f"Seu painel solar está gerando {infos_aparelhos['producao_solar_watts']} Watts, "
-                    f" o nível de sua bateria é {infos_aparelhos['bateria_carga']} por cento "
+                    f" o nível de sua bateria é {infos_aparelhos['bateria_carga']}"
                     f" e sua rede está consumindo no total {infos_aparelhos['consumo_casa_watts']} Watts."
                 )
 
@@ -36,7 +36,7 @@ async def alexa_webhook(request: Request):
             elif intent_nome == "LigarCargasIntent":
                 ligar_cargas_prioritarias()
                 informacoes_consumo = info_consumo()
-                texto_resposta = f"Ok, as cargas prioritárias foram ligadas." + f"{informacoes_consumo['equivale']}" + f"{informacoes_consumo['duracao']}"
+                texto_resposta = f"Ok, as cargas prioritárias foram ligadas." + f" {informacoes_consumo['equivale']}" + f"{informacoes_consumo['duracao']}"
 
             elif intent_nome == "DesligarCargasIntent":
                 desligar_cargas_prioritarias()
