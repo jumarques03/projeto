@@ -68,5 +68,5 @@ def info_consumo():
         # Capacidade de Armazenamento nominal da bateria Lynx U G3: 5.4 kWh = 5400 Wh
         duracao_bateria  = (5400)/consumo_cargas
 
-        return {f'O consumo de suas cargas prioritárias equivale a {porcentagem_equivalente_consumo_total:.2f}% do consumo total da residência.',
-                f'Caso acabe a luz, sua bateria conseguirá abastecer suas cargas por {int(duracao_bateria)}h.'}
+        return { 'equivale': f'O consumo de suas cargas prioritárias equivale a {porcentagem_equivalente_consumo_total:.2f}% do consumo total da residência.',
+                'duracao': f' Caso acabe a luz, sua bateria conseguirá abastecer suas cargas por {int(duracao_bateria)}h.'}

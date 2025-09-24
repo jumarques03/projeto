@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from funcoes_auxiliares.funcs_auxiliares import corpo_resposta_para_Alexa, resposta_erro_padrao, ler_cargas, acesso_cargas, dicas, obter_clima
 from funcoes_auxiliares.status_aparelhos import infos
-from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias
+from funcoes_auxiliares.cargas_prioritarias import ligar_cargas_prioritarias, desligar_cargas_prioritarias, info_consumo
 rota_alexa = APIRouter(prefix="/alexa")
 
 @rota_alexa.post("/")
@@ -35,7 +35,8 @@ async def alexa_webhook(request: Request):
 
             elif intent_nome == "LigarCargasIntent":
                 ligar_cargas_prioritarias()
-                texto_resposta = "Ok, as cargas prioritárias foram ligadas."
+                informacoes_consumo = info_consumo()
+                texto_resposta = f"Ok, as cargas prioritárias foram ligadas." + f"{informacoes_consumo['equivale']}" + f"{informacoes_consumo['duracao']}"
 
             elif intent_nome == "DesligarCargasIntent":
                 desligar_cargas_prioritarias()
@@ -55,7 +56,7 @@ async def alexa_webhook(request: Request):
                         f"A descrição do clima é de {clima['descricao']}. "
                         f"A temperatura máxima será de {clima['temperatura_maxima']} "
                         f"e a mínima de {clima['temperatura_minima']}. "
-                        f"A chance de chuva é de {clima['chance_de_chuva(%)']}"
+                        f"A chance de chuva é de {clima.get('chance_de_chuva(%)', 'não disponível')}"
                         f" e as nuvens cobrirão {clima['cobertura_de_nuvens(%)']} do céu."
                     )
 
