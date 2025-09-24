@@ -24,9 +24,9 @@ async def alexa_webhook(request: Request):
             if intent_nome == "StatusAparelhosDeEnergiaIntent":
                 infos_aparelhos = infos()
                 texto_resposta = (
-                    f"Seu painel solar está gerando {infos_aparelhos['FV(W)']} Watts, "
-                    f" o nível de sua bateria é {infos_aparelhos['SOC(%)']} por cento "
-                    f" e sua rede está consumindo no total {infos_aparelhos['Carga(W)']} Watts."
+                    f"Seu painel solar está gerando {infos_aparelhos['producao_solar_watts']} Watts, "
+                    f" o nível de sua bateria é {infos_aparelhos['bateria_carga']} por cento "
+                    f" e sua rede está consumindo no total {infos_aparelhos['consumo_casa_watts']} Watts."
                 )
 
             elif intent_nome == "DicaIntent":
