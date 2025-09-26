@@ -36,7 +36,7 @@ async def alexa_webhook(request: Request):
             elif intent_nome == "LigarCargasIntent":
                 ligar_cargas_prioritarias()
                 informacoes_consumo = info_consumo()
-                texto_resposta = f"Ok, as cargas prioritárias foram ligadas." + f" {informacoes_consumo['equivale']}" + f"{informacoes_consumo['duracao']}"
+                texto_resposta = f"Ok, as cargas prioritárias foram ligadas." + f"{informacoes_consumo['duracao']}"
 
             elif intent_nome == "DesligarCargasIntent":
                 desligar_cargas_prioritarias()
