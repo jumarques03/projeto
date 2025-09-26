@@ -63,7 +63,6 @@ def info_consumo():
         consumo = consumo_aparelhos()
         consumo_residencia = infos()
         consumo_cargas = consumo['consumo_total_das_cargas'] 
-        porcentagem_equivalente_consumo_total = (consumo_cargas / consumo_residencia['consumo_casa_watts'] ) * 100
 
         # Capacidade de Armazenamento nominal da bateria Lynx U G3: 5.4 kWh = 5400 Wh
         duracao_bateria  = (5400)/consumo_cargas
