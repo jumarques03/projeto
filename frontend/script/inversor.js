@@ -1,7 +1,7 @@
 // script/inversor.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = 'http://127.0.0.1:8000/site';
+    const baseUrl = 'https://smartsolargrid.onrender.com/site';
 
     const carregarStatusInversor = async () => {
         try {

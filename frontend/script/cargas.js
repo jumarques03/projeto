@@ -1,127 +1,156 @@
-// script/cargas.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CONFIGURAÇÃO ---
+    // --- ELEMENTOS DO DOM ---
     const form = document.getElementById('add-load-form');
     const input = document.getElementById('load-input');
     const list = document.getElementById('load-list');
-    const baseUrl = 'http://127.0.0.1:8000/site'; // URL base da sua API
+    
+    const statusList = document.getElementById('status-list');
+    const batteryForecast = document.getElementById('battery-forecast');
 
-    // --- FUNÇÕES DA API ---
+    const baseUrl = 'https://smartsolargrid.onrender.com/site';
 
-    // 1. GET: Busca a lista de cargas no backend e exibe na tela
+    // --- FUNÇÕES DA API (GERENCIADOR DE CARGAS) ---
+
     const carregarCargas = async () => {
         try {
             const response = await fetch(`${baseUrl}/lista_cargas_prioritarias`);
-            if (!response.ok) {
-                throw new Error('Não foi possível carregar a lista.');
-            }
+            if (!response.ok) throw new Error('Não foi possível carregar a lista.');
             const data = await response.json();
             
-            list.innerHTML = ''; // Limpa a lista antes de adicionar os itens atualizados
-
-            // Transforma o objeto de cargas em itens da lista
+            list.innerHTML = '';
             for (const id in data.cargas_prioritarias) {
                 const nomeDaCarga = data.cargas_prioritarias[id];
-                addLoadItemToScreen(nomeDaCarga, id); // Usa a função auxiliar para criar o <li>
+                addLoadItemToScreen(nomeDaCarga, id);
             }
         } catch (error) {
             console.error("Erro ao carregar cargas:", error);
-            alert("Não foi possível carregar a lista de cargas.");
+            list.innerHTML = '<li>Falha ao carregar a lista.</li>';
         }
     };
 
-    // 2. POST: Adiciona uma nova carga no backend
-const adicionarCarga = async (nomeDaCarga) => {
-    try {
-        const response = await fetch(`${baseUrl}/escolher_cargas_prioritarias`, {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-            // A CORREÇÃO ESTÁ AQUI:
-            // Empacotamos a string dentro de um objeto com a chave "dispositivo"
-            body: JSON.stringify({ dispositivo: nomeDaCarga }) 
-        });
-        
-        if (!response.ok) {
-            // Lança um erro se a resposta não for 2xx
-            throw new Error('Falha ao adicionar a carga.');
+    const adicionarCarga = async (nomeDaCarga) => {
+        try {
+            const response = await fetch(`${baseUrl}/escolher_cargas_prioritarias`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ dispositivo: nomeDaCarga })
+            });
+            if (!response.ok) throw new Error('Falha ao adicionar a carga.');
+            carregarCargas();
+        } catch (error) {
+            console.error("Erro ao adicionar carga:", error);
+            alert("Não foi possível adicionar a nova carga.");
         }
+    };
 
-        // Se a API adicionou com sucesso, recarregamos a lista inteira
-        carregarCargas();
-
-    } catch (error) {
-        console.error("Erro ao adicionar carga:", error);
-        alert("Não foi possível adicionar a nova carga. Verifique o console para mais detalhes.");
-    }
-};
-
-    // 3. DELETE: Remove uma carga do backend
     const removerCarga = async (idDaCarga) => {
         try {
             const response = await fetch(`${baseUrl}/remover_carga_prioritaria?carga_id=${idDaCarga}`, {
                 method: 'DELETE'
             });
-            if (!response.ok) {
-                throw new Error('Falha ao remover a carga.');
-            }
-            // Não precisamos recarregar a lista inteira, podemos só remover o item da tela.
-            // Opcional: recarregar com carregarCargas() para reordenar os números.
+            if (!response.ok) throw new Error('Falha ao remover a carga.');
         } catch (error) {
             console.error("Erro ao remover carga:", error);
             alert("Não foi possível remover a carga.");
         }
     };
 
-    // --- FUNÇÃO AUXILIAR PARA MANIPULAR O HTML ---
+    // --- FUNÇÕES DA API (NOVOS WIDGETS) ---
 
-    // Esta função apenas cria os elementos na tela.
-    // Adicionamos o 'id' para saber quem deletar depois.
+    const carregarStatusCargas = async () => {
+        try {
+            const response = await fetch(`${baseUrl}/consumo_aparelhos`); 
+            if (!response.ok) throw new Error('Não foi possível carregar o status.');
+            const data = await response.json();
+            
+            statusList.innerHTML = '';
+
+            const aparelhos = data.consumo_de_cada_aparelho;
+            if (aparelhos && Object.keys(aparelhos).length > 0) {
+                 for (const nomeAparelho in aparelhos) {
+                    const consumo = aparelhos[nomeAparelho];
+                    const li = document.createElement('li');
+                    const nomeLimpo = nomeAparelho.replace('Consumo ', '');
+
+                    li.innerHTML = `
+                        <span>
+                            <span class="status-indicator"></span>
+                            ${nomeLimpo}
+                        </span>
+                        <span class="consumption-value">${consumo}W</span>
+                    `;
+                    statusList.appendChild(li);
+                }
+            } else {
+                 statusList.innerHTML = '<p>Nenhuma carga prioritária ativa no momento.</p>';
+            }
+        } catch (error) {
+            console.error("Erro ao carregar status das cargas:", error);
+            statusList.innerHTML = '<p>Não foi possível carregar o status.</p>';
+        }
+    };
+
+    const carregarPrevisaoBateria = async () => {
+        try {
+            // *** CORREÇÃO APLICADA AQUI ***
+            // Ajustado o nome do endpoint para bater com o seu arquivo de rotas.
+            const response = await fetch(`${baseUrl}/informacoes_consumo`);
+            if (!response.ok) throw new Error('Não foi possível carregar a previsão.');
+            const data = await response.json();
+
+            batteryForecast.textContent = data.duracao || 'Informação indisponível.';
+        } catch (error) {
+            console.error("Erro ao carregar previsão da bateria:", error);
+            batteryForecast.textContent = 'Falha ao carregar a previsão.';
+        }
+    };
+
+    // --- FUNÇÃO AUXILIAR PARA MANIPULAR O HTML ---
     function addLoadItemToScreen(loadName, id) {
         const li = document.createElement('li');
-        // PONTO-CHAVE: Armazenamos o ID do banco de dados no próprio elemento!
         li.setAttribute('data-id', id);
-
         const textNode = document.createTextNode(loadName);
-        
         const deleteButton = document.createElement('button');
         deleteButton.className = 'delete-btn';
         deleteButton.innerHTML = '&times;';
-
         li.appendChild(textNode);
         li.appendChild(deleteButton);
         list.appendChild(li);
     }
 
     // --- EVENTOS ---
-
-    // Evento de envio do formulário (ADICIONAR)
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const newLoadName = input.value.trim();
         if (newLoadName) {
-            adicionarCarga(newLoadName); // Chama a função da API
+            adicionarCarga(newLoadName);
             input.value = '';
             input.focus();
         }
     });
-
-    // Evento de clique na lista (REMOVER)
+    
     list.addEventListener('click', (event) => {
         if (event.target.classList.contains('delete-btn')) {
             const listItem = event.target.parentElement;
-            const idParaRemover = listItem.getAttribute('data-id'); // Pega o ID que guardamos
-
+            const idParaRemover = listItem.getAttribute('data-id');
             if (idParaRemover) {
-                removerCarga(idParaRemover); // Chama a função da API
-                listItem.remove(); // Remove o item da tela imediatamente para melhor UX
+                removerCarga(idParaRemover);
+                listItem.remove();
             }
         }
     });
 
-    // --- INICIALIZAÇÃO ---
-    // Assim que a página carrega, busca a lista inicial de cargas.
-    carregarCargas();
+    // --- INICIALIZAÇÃO E ATUALIZAÇÃO AUTOMÁTICA ---
+    function inicializarEAtualizar() {
+        carregarCargas();
+        carregarStatusCargas();
+        carregarPrevisaoBateria();
+    }
+
+    inicializarEAtualizar();
+
+    setInterval(() => {
+        carregarStatusCargas();
+        carregarPrevisaoBateria();
+    }, 10000);
 });

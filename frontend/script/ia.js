@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const messagesContainer = document.getElementById('chat-messages');
 
   // URL do seu endpoint de chatbot no backend
-  const apiUrl = 'http://127.0.0.1:8000/site/assistente';
+  const apiUrl = 'https://smartsolargrid.onrender.com/site/assistente';
 
   // Sua função de adicionar mensagem (está perfeita)
   function addMessage(text, className) {
