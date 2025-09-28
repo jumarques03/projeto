@@ -69,10 +69,14 @@ def info_consumo():
         dados_consumo = consumo_aparelhos()
         consumo_cargas = dados_consumo.get('consumo_total_das_cargas', 0)
 
+        infos_aparelhos = infos()
+        bateria_valor = int(infos_aparelhos["bateria_carga"].replace("%", ""))
+        bateria_valor = bateria_valor/100
+
         if consumo_cargas == 0:
             return {'duracao': 'Sem consumo, a bateria dura indefinidamente.'}
 
         # Capacidade de Armazenamento nominal da bateria: 5400 Wh
-        duracao_bateria = 5400 / consumo_cargas
+        duracao_bateria = 5400 * bateria_valor / consumo_cargas
         
         return {'duracao': f'Caso acabe a luz, sua bateria conseguirá abastecer suas cargas por {int(duracao_bateria)}h.'}
