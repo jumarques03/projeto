@@ -148,9 +148,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     inicializarEAtualizar();
-
-    setInterval(() => {
-        carregarStatusCargas();
-        carregarPrevisaoBateria();
-    }, 10000);
 });
