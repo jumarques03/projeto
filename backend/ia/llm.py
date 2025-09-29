@@ -50,7 +50,7 @@ def assistente_llm_site(info: dict, pergunta: str):
     }
     
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash-latest",
+        model_name="gemini-2.0-flash-lite-001",
         system_instruction=system_prompt,
         generation_config=generation_config
     )
